@@ -1,0 +1,65 @@
+<div class="card">
+    <div class="card-body">
+ 
+        <h5>Consulta de empresas</h5>
+        <p>Listagem de empresas cadastradas.</p>
+ 
+        <div *ngIf="mensagem_sucesso" class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+            <strong>Sucesso!</strong> {{mensagem_sucesso}}
+            <button type="button" class="btn-close" aria-label="Close"(click)="limparMensagens()"></button>
+        </div>
+ 
+        <div *ngIf="mensagem_erro" class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+            <strong>Erro!</strong> {{mensagem_erro}}
+            <button type="button" class="btn-close" aria-label="Close"(click)="limparMensagens()"></button>
+        </div>
+
+        <div class="mt-2">
+            <input type="checkbox" value="1"/> Empresas Ativas
+            &nbsp;&nbsp;
+            <input type="checkbox" value="0"/> Empresas Ativas
+        </div>
+ 
+        <table class="table table-hover mt-3">
+            <thead>
+                <tr>
+                    <th>Nome Fantasia</th>
+                    <th>Razão Social</th>
+                    <th>CNPJ</th>
+                    <th>Cadastrado em</th>
+                    <th>Última Alteração</th>
+                    <th width="160">Operações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let e of empresas">
+                    <td>{{e.nomeFantasia | uppercase}}</td>
+                    <td>{{e.razaoSocial}}</td>
+                    <td>{{e.cnpj}}</td>
+                    <td>{{e.dataInclusao | date : 'dd/MM/yyyy'}}</td>
+                    <td>{{e.dataAlteracao | date : 'dd/MM/yyyy'}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" [routerLink]="['/editar-empresas', e.idEmpresa]">
+                            Alterar
+
+                        </button>
+                        &nbsp;
+                        <button (click)="excluirEmpresa(e.idEmpresa)" 
+                            class="btn btn-sm btn-outline-danger">
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        Quantidade de empresas: {{empresas.length}}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+ 
+    </div>
+</div>  
+ 

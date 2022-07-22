@@ -1,0 +1,72 @@
+<div class="card">
+    <div class="card-body">
+ 
+        <h5>Consulta de funcionários</h5>
+        <p>Listagem de funcionários cadastrados.</p>
+ 
+        <div *ngIf="mensagem_sucesso" class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+            <strong>Sucesso!</strong> {{mensagem_sucesso}}
+            <button type="button" class="btn-close" aria-label="Close"(click)="limparMensagens()"></button>
+        </div>
+ 
+        <div *ngIf="mensagem_erro" class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+            <strong>Erro!</strong> {{mensagem_erro}}
+            <button type="button" class="btn-close" aria-label="Close" (click)="limparMensagens()"></button>
+        </div>
+
+        <div class="mt-2">
+            <input type="checkbox" value="1"/> Funcionários Ativos
+            &nbsp;&nbsp;
+            <input type="checkbox" value="0"/> Funcionários Ativos
+        </div>
+
+        <table class="table table-hover mt-3">
+            <thead>
+                <tr>
+                    <th>Funcionário</th>
+                    <th>Empresa</th>
+                    <th>Cadastrado em</th>
+                    <th>Última Alteração</th>
+                    <th width="160">Operações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let f of funcionarios">
+                    <td>
+                        <div>{{f.nome | uppercase}}</div>
+                        <div>CPF: {{f.cpf}}</div>
+                        <div>Matrícula: {{f.matricula}}</div>
+                        <div>Admissão: {{f.dataAdmissao 
+                             | date : 'dd/MM/yyyy'}}</div>
+                    </td>
+                    <td>
+                        <div>{{f.empresa.nomeFantasia | uppercase}}</div>
+                        <div>{{f.empresa.razaoSocial}}</div>
+                        <div>{{f.empresa.cnpj}}</div>
+                    </td>
+                    <td>{{f.dataInclusao | date : 'dd/MM/yyyy'}}</td>
+                    <td>{{f.dataAlteracao | date : 'dd/MM/yyyy'}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" [routerLink]="['/editar-funcionarios', f.idFuncionario]">
+                            Alterar                    
+                   
+                        </button>
+                        &nbsp;
+                        <button class="btn btn-sm btn-outline-danger"
+                           (click)="excluirFuncionario(f.idFuncionario)">
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">
+                        Quantidade de funcionários: {{funcionarios.length}}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+ 
+    </div>
+</div>  

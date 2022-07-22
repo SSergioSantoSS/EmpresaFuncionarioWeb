@@ -1,0 +1,97 @@
+<div class="card">
+    <div class="card-body">
+ 
+        <h5>Edição de empresas</h5>
+        <p>Utilize os campos os campos para alterar os dados da empresa.</p>
+
+        <div *ngIf="mensagem_sucesso" class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+            <strong>Sucesso!</strong> {{mensagem_sucesso}}
+            <button type="button" class="btn-close" aria-label="Close" (click)="limparMensagens()"></button>
+        </div>
+
+        <div *ngIf="mensagem_erro" class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+            <strong>Erro!</strong> {{mensagem_erro}}
+            <button type="button" class="btn-close" aria-label="Close" (click)="limparMensagens()"></button>
+        </div>
+ 
+        <form class="mt-2" [formGroup]="formEdicao" (ngSubmit)="onSubmit()">
+ 
+            <div class="row mb-3">
+
+                <!--Campo Oculto-->
+                <input type="hidden" formControlName="idEmpresa"/>
+ 
+                <div class="col-md-4">
+                    <label>Nome Fantasia:</label>
+                    <input type="text" class="form-control" formControlName="nomeFantasia"/>
+                    <div class="text-danger">
+                        <div *ngIf="form.nomeFantasia.touched && form.nomeFantasia.invalid">
+                                 <div 
+                                 *ngIf="form.nomeFantasia.errors.required">
+                                  Por favor, informe o nome fantasia.
+                              </div>
+                              <div 
+                                *ngIf="form.nomeFantasia.errors.minlength">
+                                  Por favor, informe no mínimo 10 caracteres.
+                              </div>
+                              <div 
+                                *ngIf="form.nomeFantasia.errors.maxlength">
+                                  Por favor, informe no máximo 150 caracteres.
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+   
+                  <div class="col-md-4">
+                      <label>Razão Social:</label>
+                      <input type="text" class="form-control"formControlName="razaoSocial"/>
+                      <div class="text-danger">
+                          <div *ngIf="form.razaoSocial.touched && form.razaoSocial.invalid">
+                              <div 
+                                 *ngIf="form.razaoSocial.errors.required">
+                                  Por favor, informe a razão social.
+                              </div>
+                              <div 
+                                 *ngIf="form.razaoSocial.errors.minlength">
+                                  Por favor, informe no mínimo 10 caracteres.
+                              </div>
+                              <div 
+                                 *ngIf="form.razaoSocial.errors.maxlength">
+                                  Por favor, informe no máximo 150 caracteres.
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+   
+                  <div class="col-md-4">
+                      <label>CNPJ:</label>
+                      <input type="text" class="form-control" formControlName="cnpj"/>
+                      <div class="text-danger">
+                          <div *ngIf="form.cnpj.touched && form.cnpj.invalid">
+                              <div *ngIf="form.cnpj.errors.required">
+                                  Por favor, informe o CNPJ.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+     
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <label>Status da Empresa</label>
+                        <select class="form-select" formControlName="ativo">
+                            <option value="1"> Ativo </option>
+                            <option value="0"> Inativo </option>
+                        </select>
+                    </div>
+                </div>
+     
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <input type="submit" value="Salvar Alteração" class="btn btn-outline-primary"[disabled]="!formEdicao.valid"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>    
